@@ -633,8 +633,7 @@ void ParameterManager::_startParameterDownload(uint8_t componentId)
         return;
     }
 
-    bool fake_ready = true;
-    if (sharedLink->linkConfiguration()->isHighLatency() || _logReplay || fake_ready) {
+    if (sharedLink->linkConfiguration()->isHighLatency() || _logReplay) {
         // These links don't load params
         _parametersReady = true;
         _missingParameters = true;
