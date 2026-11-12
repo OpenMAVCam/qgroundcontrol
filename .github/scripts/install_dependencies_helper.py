@@ -13,6 +13,7 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from ci_bootstrap import ensure_tools_dir
@@ -21,6 +22,7 @@ ensure_tools_dir(__file__)
 
 from common.gh_actions import gh_error, gh_warning, write_github_output
 from common.proc import run_captured
+from setup.install_dependencies import get_debian_packages, resolve_package_alternatives
 
 APT_OPTS = ["-o", "DPkg::Lock::Timeout=300", "-o", "Acquire::Retries=3"]
 
@@ -132,17 +134,10 @@ def detect_python_version() -> None:
 
 def print_packages() -> None:
     """Resolve the debian apt package list and emit it as a GITHUB_OUTPUT value."""
-    result = run_captured(
-        [
-            sys.executable,
-            "tools/setup/install_dependencies",
-            "--platform",
-            "debian",
-            "--print-packages",
-        ],
-        check=True,
-    )
-    write_github_output({"packages": result.stdout.strip()})
+    # Keep resolver diagnostics out of the machine-readable package output.
+    with redirect_stdout(sys.stderr):
+        packages = resolve_package_alternatives(get_debian_packages())
+    write_github_output({"packages": " ".join(packages)})
 
 
 def main() -> None:

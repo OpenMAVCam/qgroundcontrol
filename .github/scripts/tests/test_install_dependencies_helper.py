@@ -5,6 +5,34 @@ from __future__ import annotations
 from unittest.mock import MagicMock, patch
 
 import install_dependencies_helper
+import pytest
+
+
+@pytest.mark.parametrize(
+    ("available", "expected"),
+    [
+        ("libgstreamer-plugins-good1.0-dev", "cmake libgstreamer-plugins-good1.0-dev"),
+        ("libgstreamer-plugins-extra1.0-dev", "cmake libgstreamer-plugins-extra1.0-dev"),
+        (None, "cmake"),
+    ],
+)
+def test_print_packages_resolves_apt_candidates(available, expected, gh_output, capsys):
+    """CI receives installable names without resolver diagnostics in its package list."""
+    with (
+        patch.dict(
+            "setup.install_dependencies._packages.DEBIAN_PACKAGES",
+            {"core": ["cmake", "libgstreamer-plugins-good1.0-dev"]},
+            clear=True,
+        ),
+        patch(
+            "setup.install_dependencies._common.check_apt_package_available",
+            side_effect=lambda pkg: pkg == available,
+        ),
+    ):
+        install_dependencies_helper.print_packages()
+
+    assert gh_output.read_text() == f"packages={expected}\n"
+    assert capsys.readouterr().out == ""
 
 
 class TestDetectPythonVersion:
