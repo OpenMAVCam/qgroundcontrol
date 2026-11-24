@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "fileType": "SettingsUI",
+    "groups": [
+        {
+            "component": "CameraInformation",
+            "sectionName": "Camera Information",
+            "keywords": ["camera", "manufacturer", "model", "firmware version", "component id", "connection"]
+        },
+        {
+            "component": "CameraFirmwareUpdate",
+            "sectionName": "Firmware Update",
+            "keywords": ["camera", "firmware", "update", "file"]
+        }
+    ]
+}

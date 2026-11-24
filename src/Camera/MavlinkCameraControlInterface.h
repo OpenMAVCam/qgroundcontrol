@@ -35,6 +35,7 @@ class MavlinkCameraControlInterface : public FactGroup
     Q_PROPERTY(QString              modelName               READ modelName                                          NOTIFY infoChanged)
     Q_PROPERTY(QString              vendor                  READ vendor                                             NOTIFY infoChanged)
     Q_PROPERTY(QString              firmwareVersion         READ firmwareVersion                                    NOTIFY infoChanged)
+    Q_PROPERTY(int                  componentId             READ compID                                             CONSTANT)
     Q_PROPERTY(qreal                focalLength             READ focalLength                                        NOTIFY infoChanged)
     Q_PROPERTY(QSizeF               sensorSize              READ sensorSize                                         NOTIFY infoChanged)
     Q_PROPERTY(QSize                resolution              READ resolution                                         NOTIFY infoChanged)

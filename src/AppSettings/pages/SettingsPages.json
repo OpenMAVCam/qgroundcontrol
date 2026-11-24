@@ -93,6 +93,12 @@
             "visible": "QGroundControl.settingsManager.videoSettings.userVisible"
         },
         {
+            "name": "Camera",
+            "qml": "CameraSettings.qml",
+            "icon": "qrc:/InstrumentValueIcons/camera.svg",
+            "pageDefinition": "Camera.SettingsUI.json"
+        },
+        {
             "divider": true
         },
         {
