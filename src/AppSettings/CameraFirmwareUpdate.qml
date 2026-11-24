@@ -4,26 +4,14 @@ import QtQuick.Layouts
 import QGroundControl
 import QGroundControl.Controls
 
-ColumnLayout {
+SettingsGroupLayout {
     id: root
 
-    spacing: ScreenTools.defaultFontPixelHeight
+    heading: qsTr("Firmware Update")
+    showDividers: false
+    contentSpacing: ScreenTools.defaultFontPixelHeight
 
     property string _firmwareFile: ""
-
-    QGCPalette { id: qgcPal; colorGroupEnabled: true }
-
-    Rectangle {
-        Layout.fillWidth: true
-        Layout.preferredHeight: 1
-        color: qgcPal.windowShade
-    }
-
-    QGCLabel {
-        Layout.fillWidth: true
-        text: qsTr("Firmware Update")
-        font.bold: true
-    }
 
     QGCButton {
         objectName: "cameraSelectFirmwareButton"

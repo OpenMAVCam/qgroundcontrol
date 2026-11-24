@@ -6,10 +6,10 @@ import QtQuick.Layouts
 import QGroundControl
 import QGroundControl.Controls
 
-ColumnLayout {
+SettingsGroupLayout {
     id: root
 
-    spacing: ScreenTools.defaultFontPixelHeight
+    heading: qsTr("Camera Information")
 
     readonly property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
     readonly property var _cameraManager: _activeVehicle ? _activeVehicle.cameraManager : null
@@ -19,19 +19,6 @@ ColumnLayout {
                                         && _camera && _camera.componentId > 0)
 
     QGCPalette { id: qgcPal; colorGroupEnabled: true }
-
-    QGCLabel {
-        Layout.fillWidth: true
-        text: qsTr("Camera")
-        font.pointSize: ScreenTools.largeFontPointSize
-        font.bold: true
-    }
-
-    QGCLabel {
-        Layout.fillWidth: true
-        text: qsTr("Camera Information")
-        font.bold: true
-    }
 
     Repeater {
         model: [
